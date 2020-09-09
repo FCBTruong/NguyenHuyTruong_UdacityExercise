@@ -1,7 +1,9 @@
+import 'package:NguyenHuyTruong_UdacityExercise/converter_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:NguyenHuyTruong_UdacityExercise/unit.dart';
 
-final _rowHeight = 200.0;
+final _rowHeight = 100.0;
 final _borderRadius = BorderRadius.circular(0);
 
 /// A custom [Category] widget.
@@ -17,16 +19,42 @@ class Category extends StatelessWidget {
   final String name;
   final ColorSwatch color;
   final IconData iconLocation;
+  final List<Unit> units;
 
   const Category({
     Key key,
     @required this.name,
     @required this.color,
     @required this.iconLocation,
-}): assert(color != null),
+    @required this.units,
+  }): assert(color != null),
   assert(color != null),
   assert(iconLocation != null),
+  assert(units != null),
   super(key: key);
+
+  // Navigates to the [ConverterRoute].
+  void _navigateToConverter(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute<Null>(
+      builder: (BuildContext context){
+        return Scaffold(
+          appBar: AppBar(
+            elevation: 1.0,
+            title: Text(
+              name,
+              style: Theme.of(context).textTheme.display1,
+            ),
+            centerTitle: true,
+            backgroundColor: color,
+          ),
+          body: ConverterRoute(
+            color: color,
+            units: units,
+          ),
+        );
+      }
+    ));
+  }
 
   /// Builds a custom widget that shows [Category] information.
   ///
@@ -39,42 +67,46 @@ class Category extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-        child: Container(
-            height: _rowHeight,
-            child: InkWell(
-              borderRadius: _borderRadius,
-              splashColor: Colors.white,
-              highlightColor: Colors.blue,
+      child: Container(
+          height: _rowHeight,
+          child: InkWell(
+            borderRadius: _borderRadius,
+            splashColor: color,
+            highlightColor: color,
 
-              onTap: (){
-                print('I was Tapped');
+            onTap: () {
+              _navigateToConverter(context);
+              print('I was Tapped');
             },
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
 
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(16.0),
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
 
-                      child: Icon(
-                        iconLocation,
-                        size: 90.0,
-                      ),
+                    child: Icon(
+                      iconLocation,
+                      size: 50.0,
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      name,
+                      textAlign: TextAlign.center,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headline,
+                    ),
+                  ),
+                ],
               ),
-                      Center(
-                        child: Text(
-                          name,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline,
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            )
-        ),
+            ),
+          )
+      ),
     );
   }
 }
