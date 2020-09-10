@@ -14,17 +14,6 @@ void main() {
 /// This widget is the root of our application.
 /// Currently, we just show one widget in our app.
 class UnitConverterApp extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Center(
-      child: FlatButton(
-        onPressed: (){
-          print('I was pressed');
-          setSta
-        },
-      ),
-    )
-  }
-  /*
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,5 +23,5 @@ class UnitConverterApp extends StatelessWidget {
       title: 'Unit Converter',
       home: CategoryRoute(),
     );
-  }*/
+  }
 }

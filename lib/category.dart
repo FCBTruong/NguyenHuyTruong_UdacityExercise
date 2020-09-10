@@ -2,6 +2,7 @@ import 'package:NguyenHuyTruong_UdacityExercise/converter_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:NguyenHuyTruong_UdacityExercise/unit.dart';
+import 'package:meta/meta.dart';
 
 final _rowHeight = 100.0;
 final _borderRadius = BorderRadius.circular(0);
@@ -51,6 +52,9 @@ class Category extends StatelessWidget {
             color: color,
             units: units,
           ),
+
+            // This prevents the attempt to resize the screen when the keyboard is opened
+          resizeToAvoidBottomPadding: false,
         );
       }
     ));
